@@ -118,7 +118,7 @@ public class CarScanController {
 
         StringBuffer sb = new StringBuffer();
         // 出入场车牌识别图片存储地址
-        String filePath = "D:\\ParkingManagementSystem\\Parking\\car_pic";
+        String filePath = "F:\\WorkSpace\\JavaWeb\\parking\\car_repo";
         File fileDir = new File(filePath);
         try {
             // 不传图片，此处捕获空指针异常，代码照常运行

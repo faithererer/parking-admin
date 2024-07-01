@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -24,4 +25,9 @@ public interface ParkOrderMapper extends BaseMapper<ParkOrder> {
     List<ParkOrder> selectParkOrderByParkIdAndPlateNum(Long parkId, String plateNum);
 
     BigDecimal getTotalIncome(String userName);
-}
+    /**
+     * 查询指定日期范围内每日缴费金额
+     * @param params 查询参数，包含 startDate 和 endDate
+     * @return 每日缴费金额列表
+     */
+    List<Map<String, Object>> getDailyPayments(Map<String, Object> params);}

@@ -5,6 +5,8 @@ import com.laoayu.parking.system.entity.ParkOrder;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -46,4 +48,14 @@ public interface IParkOrderService extends IService<ParkOrder> {
      * @return
      */
     BigDecimal getTotalIncome(String userName);
+
+    List<Map<String, Object>> getDailyPayments(String startDate, String endDate);
+    /**
+     * 获取每日缴费金额列表
+     * @param startDate 开始日期
+     * @param endDate 结束日期
+     * @return 每日缴费金额列表
+     */
+
+
 }

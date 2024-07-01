@@ -7,12 +7,14 @@ import com.laoayu.parking.system.service.ICarInfoService;
 import com.laoayu.parking.system.service.IParkOrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -71,4 +73,16 @@ public class ParkOrderController {
 
         return Result.success(totalIncome);
     }
+
+    @ApiOperation("获取每日缴费金额")
+    @GetMapping("/dailyPayments")
+    public Result<List<Map<String, Object>>> getDailyPayments(
+            @ApiParam(value = "开始日期", required = true) @RequestParam(value = "startDate") String startDate,
+            @ApiParam(value = "结束日期", required = true) @RequestParam(value = "endDate") String endDate) {
+
+        List<Map<String, Object>> dailyPayments = parkOrderService.getDailyPayments(startDate, endDate);
+
+        return Result.success(dailyPayments);
+    }
+
 }

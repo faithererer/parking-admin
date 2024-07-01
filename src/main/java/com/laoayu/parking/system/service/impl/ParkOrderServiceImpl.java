@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -71,4 +72,26 @@ public class ParkOrderServiceImpl extends ServiceImpl<ParkOrderMapper, ParkOrder
     public BigDecimal getTotalIncome(String userName) {
         return parkOrderMapper.getTotalIncome(userName);
     }
+    /**
+     * 查询指定日期范围内每日缴费金额
+     * @param startDate 开始日期，格式为"yyyy-MM-dd"
+     * @param endDate 结束日期，格式为"yyyy-MM-dd"
+     * @return 每日缴费金额列表，每个元素为包含日期和金额的 Map
+     */
+    public List<Map<String, Object>> getDailyPayments(String startDate, String endDate) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("startDate", (Object) startDate);
+        params.put("endDate", (Object) endDate);
+        List<Map<String, Object>> payments = parkOrderMapper.getDailyPayments(params);
+
+        // 格式化日期字段
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        for (Map<String, Object> payment : payments) {
+            Date sqlDate = (Date) payment.get("date");
+            String formattedDate = dateFormat.format(sqlDate);
+            payment.put("date", formattedDate);
+        }
+        return payments;
+    }
+
 }

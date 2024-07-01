@@ -68,4 +68,12 @@
             </if>
         </where>
     </select>
+    <!-- 根据日期范围查询每日缴费金额 -->
+    <select id="getDailyPayments" parameterType="map" resultType="map">
+        SELECT DATE(entry_time) AS date, SUM(park_fee) AS amount
+        FROM park_order
+        WHERE entry_time BETWEEN #{startDate} AND #{endDate}
+        GROUP BY DATE(entry_time)
+    </select>
+
 </mapper>

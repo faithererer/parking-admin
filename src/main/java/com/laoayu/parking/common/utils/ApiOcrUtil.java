@@ -5,6 +5,7 @@ import com.alibaba.fastjson2.JSONArray;
 import com.baidu.aip.ocr.AipOcr;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
@@ -19,9 +20,16 @@ import java.util.Map;
 @Configuration
 public class ApiOcrUtil {
     //设置APPID/AK/SK
-    private static String APP_ID = "31xxxx98";
-    private static String API_KEY ="jHLYRKxxxxxXTI19AFD";
-    private static String SECRET_KEY = "EyyzcVYAyxxxxxxxxxxxxxhzrxFxGrsqQ";
+
+
+    @Value("${baidu.id}")
+    private static String APP_ID;
+
+    @Value("${baidu.api-key}")
+    private static String API_KEY;
+
+    @Value("${baidu.secret-key}")
+    private static String SECRET_KEY;
 
     public static void main(String[] args) {
 
@@ -67,7 +75,7 @@ public class ApiOcrUtil {
      */
     public Map<String, Object> plateLicense(String image) {
         try {
-            AipOcr client = new AipOcr("31913498", "jHLYRK68f3g5H8IeXTI19AFD", "EyyzcVYAyMsXZykm20z5xhzrxFxGrsqQ");
+            AipOcr client = new AipOcr(APP_ID, API_KEY, SECRET_KEY);
             client.setConnectionTimeoutInMillis(2000);
             client.setSocketTimeoutInMillis(60000);
             HashMap<String, String> options = new HashMap<>();

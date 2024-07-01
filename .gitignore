@@ -1,0 +1,2 @@
+# Ignore application secrets configuration
+/src/main/resources/application-secrets.yml
