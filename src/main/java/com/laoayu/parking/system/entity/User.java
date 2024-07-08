@@ -95,4 +95,9 @@ public class User implements Serializable {
      */
     @TableField(exist = false)
     private List<Long> parkIdList;
+
+    // 权限
+    @TableField(exist = false)
+    private String role;
+
 }

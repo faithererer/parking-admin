@@ -71,5 +71,5 @@ public interface IParkInfoService extends IService<ParkInfo> {
      * @param userName
      * @return
      */
-    Page<ParkInfo> getParkInfoList(Page<Object> page, String parkName, String parkAddress, String userName);
+        Page<ParkInfo> getParkInfoList(Page<Object> page, String parkName, String parkAddress, String userName, Boolean likeSearch);
 }

@@ -30,6 +30,8 @@ public class ApiOcrUtil {
 
     @Value("${baidu.secret-key}")
     private static String SECRET_KEY;
+    @Value("${pic_path}")
+    private static String PATH;
 
     public static void main(String[] args) {
 
@@ -38,9 +40,9 @@ public class ApiOcrUtil {
 
         //设置本地图片地址
 //        String path = "D:\\项目模板\\car-OCR-master\\car-OCR-master\\res\\image\\baidu_image\\test1.jpg";
-        String path = "D:\\ParkingManagementSystem\\Parking\\park_pic\\d208c933c9744152a4dbbfb4c90b9b44test19.jpg";
-        //通用文字识别
-        licencePlateNumber(aipOcr,path);
+//        String path = PATH;
+//        //通用文字识别
+//        licencePlateNumber(aipOcr,path);
 
     }
 

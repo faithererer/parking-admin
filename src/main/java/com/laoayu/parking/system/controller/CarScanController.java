@@ -18,6 +18,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.multipart.MultipartFile;
@@ -66,6 +67,8 @@ public class CarScanController {
 
     @Resource
     private ICarInfoService carInfoService;
+    @Value("pic_path")
+    String PATH;
 
     @ApiOperation("查询根据条件查对应停车场车辆扫描结果，根据登录的用户名查对应List")
     @GetMapping("/getCarScanList")
@@ -118,7 +121,8 @@ public class CarScanController {
 
         StringBuffer sb = new StringBuffer();
         // 出入场车牌识别图片存储地址
-        String filePath = "F:\\WorkSpace\\JavaWeb\\parking\\car_repo";
+
+        String filePath = PATH;
         File fileDir = new File(filePath);
         try {
             // 不传图片，此处捕获空指针异常，代码照常运行

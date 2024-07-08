@@ -34,3 +34,7 @@ mybatis-plus:
       logic-not-delete-value: 0
 #扫描所有entity包
   type-aliases-package: com.laoayu.parking.*.entity
+
+
+pic_path : D:\\ParkingManagementSystem\\Parking\\park_pic\\d208c933c9744152a4dbbfb4c90b9b44test19.jpg
+

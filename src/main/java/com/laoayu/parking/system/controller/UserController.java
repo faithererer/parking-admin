@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.laoayu.parking.common.vo.Result;
 import com.laoayu.parking.system.entity.User;
+import com.laoayu.parking.system.service.IRoleService;
+import com.laoayu.parking.system.service.IUserRoleService;
 import com.laoayu.parking.system.service.IUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -35,6 +37,9 @@ public class UserController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private IUserRoleService userRoleService;
 
     @ApiOperation("查询所有用户接口")
     @GetMapping("/all")
@@ -86,7 +91,10 @@ public class UserController {
 
         Page<User> page = new Page<>(pageNum,pageSize);
         userService.page(page,wrapper);
-
+        List<User> records = page.getRecords();
+        for (User record : records) {
+            record.setRole(userRoleService.getRoleByUserId(record.getUserId()).getRoleName());
+        }
         Map<String,Object> data = new HashMap<>();
         data.put("total",page.getTotal());
         data.put("rows",page.getRecords());

@@ -1,0 +1,14 @@
+git filter-repo --commit-callback '
+    if commit.author_email == b"106958612+DlaoAyu@users.noreply.github.com":
+        commit.author_name = b"faithererer"
+        commit.author_email = b"3417759874@qq.com"
+    if commit.committer_email == b"106958612+DlaoAyu@users.noreply.github.com":
+        commit.committer_name = b"faithererer"
+        commit.committer_email = b"3417759874@qq.com"
+    if commit.author_email == b"junyu.dai@realsee.net":
+        commit.author_name = b"faithererer"
+        commit.author_email = b"3417759874@qq.com"
+    if commit.committer_email == b"junyu.dai@realsee.net":
+        commit.committer_name = b"faithererer"
+        commit.committer_email = b"3417759874@qq.com"
+'

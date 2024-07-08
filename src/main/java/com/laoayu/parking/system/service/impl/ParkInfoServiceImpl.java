@@ -1,8 +1,11 @@
 package com.laoayu.parking.system.service.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.laoayu.parking.common.holder.UserHolder;
 import com.laoayu.parking.system.entity.ParkInfo;
+import com.laoayu.parking.system.entity.UserPark;
 import com.laoayu.parking.system.mapper.ParkInfoMapper;
+import com.laoayu.parking.system.mapper.UserParkMapper;
 import com.laoayu.parking.system.service.IParkInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
@@ -25,6 +28,8 @@ public class ParkInfoServiceImpl extends ServiceImpl<ParkInfoMapper, ParkInfo> i
 
     @Resource
     private ParkInfoMapper parkInfoMapper;
+    @Resource
+    private UserParkMapper userParkMapper;
 
     /**
      * 添加停车场信息
@@ -34,7 +39,11 @@ public class ParkInfoServiceImpl extends ServiceImpl<ParkInfoMapper, ParkInfo> i
     public void addParkInfo(ParkInfo parkInfo) {
         //写入停车场表
         this.baseMapper.insert(parkInfo);
-
+        // 写入用户-停车场关联
+        UserPark userPark = new UserPark();
+        userPark.setParkId(parkInfo.getParkId());
+        userPark.setUserId(UserHolder.getUser().getUserId());
+        userParkMapper.insert(userPark);
     }
 
     /**
@@ -69,6 +78,8 @@ public class ParkInfoServiceImpl extends ServiceImpl<ParkInfoMapper, ParkInfo> i
 
         //根据parkId删除数据
         this.baseMapper.deleteById(parkId);
+        // 删除关联
+        userParkMapper.deleteByUserIdAndParkId(UserHolder.getUser().getUserId(), parkId);
     }
 
     /**
@@ -111,7 +122,7 @@ public class ParkInfoServiceImpl extends ServiceImpl<ParkInfoMapper, ParkInfo> i
      * @return
      */
     @Override
-    public Page<ParkInfo> getParkInfoList(Page<Object> page, String parkName, String parkAddress, String userName) {
-        return parkInfoMapper.getParkInfoList(page, parkName, parkAddress, userName);
+    public Page<ParkInfo> getParkInfoList(Page<Object> page, String parkName, String parkAddress, String userName, Boolean likeSearch) {
+        return parkInfoMapper.getParkInfoList(page, parkName, parkAddress, userName,likeSearch);
     }
 }

@@ -2,6 +2,8 @@ package com.laoayu.parking.system.mapper;
 
 import com.laoayu.parking.system.entity.UserPark;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -12,5 +14,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2023-03-28
  */
 public interface UserParkMapper extends BaseMapper<UserPark> {
-
+    int deleteByUserIdAndParkId(Long userId, Long parkId);
 }

@@ -3,6 +3,7 @@ package com.laoayu.parking.system.mapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.laoayu.parking.system.entity.ParkInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Param;
 
@@ -25,5 +26,7 @@ public interface ParkInfoMapper extends BaseMapper<ParkInfo> {
     @SuppressWarnings("MybatisXMapperMethodInspection")//解决@MapKey is required 报错问题
     Map<String, Object> getParkSpace(String userName);
 
-    Page<ParkInfo> getParkInfoList(Page<Object> page, String parkName, String parkAddress, String userName);
+    Page<ParkInfo> getParkInfoList(Page<Object> page, String parkName, String parkAddress, String userName,Boolean likeSearch);
+
+
 }

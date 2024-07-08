@@ -48,14 +48,18 @@ public class ParkInfoController {
                                                        @RequestParam(value = "parkAddress",required = false) String parkAddress,
                                                        @RequestParam(value = "userName",required = false) String userName,
                                                        @RequestParam(value = "pageNum",required = false) Long pageNum,
-                                                       @RequestParam(value = "pageSize",required = false) Long pageSize){
-//        LambdaQueryWrapper<ParkInfo> wrapper = new LambdaQueryWrapper<>();
-//        wrapper.like(StringUtils.hasLength(parkName),ParkInfo::getParkName,parkName);
-//        wrapper.like(StringUtils.hasLength(parkAddress),ParkInfo::getParkAddress,parkAddress);
-//
-//        Page<ParkInfo> page = new Page<>(pageNum,pageSize);
-//        parkInfoService.page(page,wrapper);
-        Page<ParkInfo> page = parkInfoService.getParkInfoList(new Page<>(pageNum,pageSize),parkName,parkAddress,userName);
+                                                       @RequestParam(value = "pageSize",required = false) Long pageSize,
+                                                       @RequestParam(value = "likeSearch",required = false) Boolean likeSearch
+                                                       ){
+        System.out.println("likeSearch = " + likeSearch);
+        if(likeSearch!=null&&likeSearch.equals(Boolean.TRUE)){
+            // 模糊搜索
+            System.out.println("模糊搜索");
+            parkName = parkName != null ? "%" + parkName + "%" : null;
+            parkAddress = parkAddress != null ? "%" + parkAddress + "%" : null;
+            userName = userName != null ? "%" + userName + "%" : null;
+        }
+        Page<ParkInfo> page = parkInfoService.getParkInfoList(new Page<>(pageNum,pageSize),parkName,parkAddress,userName,likeSearch);
 
         Map<String,Object> data = new HashMap<>();
         data.put("total",page.getTotal());
